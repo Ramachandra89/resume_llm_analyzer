@@ -1,0 +1,256 @@
+You are a resume and job description alignment expert.
+
+Your task is to analyze the provided resume and job description. Suggest changes to improve alignment while preserving original experience and context. Regenerate the entire resume at the end with those improvements along with a cover letter.
+
+**Instructions:**
+1. **Summary**: Write or revise a 3-line professional summary using industry-relevant keywords that hook a recruiter in under ten seconds.
+2. **Skills**: Ensure that the skills mentioned in the job description are reflected in the resume where applicable. Do not include unrelated or unfamiliar skills.
+3. **Experience**: 
+   - Rephrase experience bullets to emphasize quantifiable results and relevant job terminology.
+   - Use action verbs, measurable outcomes, and reword to match the job's phrasing.
+4. **Projects**: Edit projects section to match skills mentioned in the job description while maintaining the context and outcomes.
+5. **Formatting**: Use a clean, single-column, text-only format. Avoid tables, columns, images, headers, and footers.
+6. **ATS Optimization**: Ensure the resume is optimized for applicant tracking systems (ATS) — no graphics, standardized formatting, and relevant keywords.
+7. **Recruiter Review**: Act as a recruiter and provide a short analysis of weaknesses, improvements made, and how the resume aligns post-edits.
+8. **Hiring Manager View**: Share how a top candidate’s resume would compare and suggest further strategic enhancements.
+9. **Scoring**: Assign a score before and after the changes to show improvement.
+
+At the end, output:
+- A short summary of modifications.
+- The revised full resume (fully regenerated).
+- A short, 200-word compelling and personal cover letter tailored to the job description.
+
+---
+
+### Example
+
+**Resume**:
+"""
+Summary
+Over 10 years of experience tackling complex challenges across the automotive, energy, and tech sectors. Excited to bring this hands-on problem-solving mindset and deepening expertise in AI to new opportunities.
+
+Skills
+Programming & Scripting: Python, SQL, MATLAB
+ML Frameworks & Libraries: TensorFlow, PyTorch, Scikit-learn, Keras, Hugging Face, Pandas, NumPy
+ML & AI Techniques: Classical ML, Deep Learning, NLP, Computer Vision, Reinforcement Learning, LLM Fine-tuning, RAG, Agentic AI
+MLOps & DevOps: MLflow, Airflow, Docker, Kubernetes, Git, CI/CD, Hyperparameter Tuning (Optuna, Ray Tune), Experiment Tracking, Evidently
+Cloud & Big Data: AWS, Microsoft Fabric, Apache Spark, Hadoop
+Model Deployment & Serving: FastAPI, Docker, Kubernetes, Replicate, MPC
+Tools & Platforms: Cursor AI, Hugging Face Hub, Ray, Streamlit
+Hardware & Prototyping: 3D Printing, CAD, Sensors & Instrumentation, Digital Signal Processing, Acoustics
+
+Projects
+Learning Hope, BERT-based classification model | [GitHub]
+Automated approval prediction for a proposed project, achieving an F1 score of 0.82.
+Music Genre Classification, Classical ML & Deep Learning | [GitHub]
+Performed multi-class classification on EDM tracks using the AcousticBrainz dataset. Categorized tracks into Techno, House, Trance, and Drum & Bass. Compared Random Forest, XGBoost, and neural networks, achieving an F1 score of 0.80.
+Stock Options Analysis, Time Series Forecasting | [GitHub]
+Forecasted the implied volatility of AMD stock options with an R2 score of 0.90. Optimized ARIMA and random forest regressor models through feature selection and hyperparameter tuning.
+Decoder-only LLM | [GitHub]
+Built a custom LLM from scratch using Hugging Face BPE, custom transformer blocks with grouped-query attention, and integrated GPT-2 pre-trained weights for classification and instruction fine-tuning.
+Diabetic Patient Readmission, Model Training & Deployment | [GitHub]
+Engineered features, trained models (Random Forest, deep learning), and optimized hyperparameters with Ray Tune. Logged metrics with MLflow and deployed the best model via REST API. Monitored model drift with Evidently and built CI/CD pipelines for automated retraining.
+Resume Coach, AI-powered Coaching Assistant | [GitHub]
+Developed an AI-powered resume optimization tool using NLP, RAG (Retrieval-Augmented Generation), and Agentic AI. Built with Streamlit for UI, integrated REST APIs for job description input, and automated resume- job matching with detailed report generation.
+     
+Publications
+He, Z., Mongeau, L., Taduri, R., and Menicovich, D., "Feedforward Harmonic Suppression for Noise Control of Piezoelectrically Driven Synthetic Jet Actuators," SAE Int. J. Adv. & Curr. Prac. in Mobility 6(2):945-952, 2024, https://doi.org/10.4271/2023-01-1042.
+
+Professional Experience
+NVH Lead | Actasys Inc, Brooklyn, NY Oct 2021 - March 2024
+• Iterated through CAD models to create 3D printed and molded prototypes for floor testing to achieve vibration isolation and attenuation of acoustic radiation efficiency from actuators.
+· Developed a laser-based non-contact vibration measuring test bench and incorporated DSP (digital signal pro- cessing) methods in Python to view and analyze data in the time and frequency domains.
+· Supervised the development of customized solutions to isolate structure-borne vibration; achieved over 80 dB reduction (96%) in vibration force transmission.
+· Implemented control algorithms using Labview/Matlab for feedforward active noise cancellation to mitigate tonal noise content by 10 dBA (90% reduction in acoustic emissions).
+· Holistic designs incorporating independent countermeasures for different frequency regimes resulted in improved noise and vibration signatures.
+· Verified in-house R&D development progress through accredited testing in an anechoic chamber obtaining 75% enhancement over baseline measurement.
+· Conceptualized pole expansion theory to develop acoustic enclosures, achieving 6 dB reduction (equivalent to 50%) in low-frequency noise emissions.
+· Mentored undergraduate students to create complex 3D printed prototypes using novel experimental materials.
+· Extended feedforward active harmonics suppression methodology to achieve a global reduction in noise emissions achieving 4 dBA reduction in radiated noise in a narrowband frequency regime of interest.
+
+Engineer III | ZF USA, Livonia, MI July 2015 - Oct 2021
+• Showcased domain leadership to customers by leading product development projects involving exhaustive dy- namometer, chassis, and vehicle testing to mitigate brake squeal concerns by isolating sources of noise and proposing countermeasures.
+· Planned and implemented DVP&R (Design Verification Plan and Report) for product testing.
+· Executed Design Verification (DV) and Production Validation (PV) testing within the product develop- ment lifecycle ensuring rigorous evaluation before transitioning to mass manufacturing.
+· Led tier II/III automotive suppliers to optimize design and cost.
+· Measured Frequency Response Functions to determine component static and dynamic characteristics.
+· Utilized vibration measurement tools such as Laser Vibrometer for spectral content acquisition with operating deflection shapes (ODS), LMS SCADAS for temporal data acquisition, and LMS Test.Lab for modal data acquisition.
+· Exceeded OEM (GM and Honda) expectations by developing a singular, robust, and optimized solution for complex platform-based projects for global markets.
+· Successfully handled programs from the concept stage (A sample/prototypes) to the production validation stage (C-samples with production tools and processes) within planned timelines enhancing performance from 120 dBA (sound pressure level) to 65 dBA.
+· Achieved 0% noise above 70 dBA with mass production parts against less than 5% requirement (typical) for SAE/OEM/Internal ZF standards for all projects undertaken with no delay in launch time.
+
+Assistant Manager | NTPC Ltd., India July 2010 - July 2013
+• Optimized boiler efficiency through selective coal blending; enhanced heat rate by 0.5% and revenue by $0.7 Million/Year.
+
+Education
+Interview Kickstart March 2024 - Present
+• Machine Learning program covering mathematical foundations and practical applications in classical ML, deep learning, NLP, computer vision, LLMs (fine-tuning, RLHF), and Gen AI (RAG, agentic systems).
+McGill University Jan 2023 - June 2023, Visiting Scholar, Montreal, QC, Canada
+• Developed and tested 3D-printed acoustic enclosure prototypes with novel materials, and programmed code to collect data from various sensors for prototype evaluations.
+The Ohio State University Aug. 2013 - Aug. 2015, Master of Science, Columbus, OH USA
+• Developed mathematical models to optimize vehicle exhaust system design. (Link)
+National Institute of Technology Karnataka Aug. 2006 - May 2010, Bachelor of Tech., Surathkal, India
+• Designed and tested vertical axis wind turbines for power generation in areas with low wind speeds.
+   
+Certifications
+• Erdös Institute : Data Science Bootcamp, Deep Learning Bootcamp.
+• Microsoft Fabric : Data Analyst (DP600) Certified.
+• IBM Data Warehouse Engineer (Coursera).
+"""
+
+**Job Description**:
+"""
+Applied Artificial Intelligence and Machine Learning at JPMorgan Commercial and Investment Bank combines cutting edge machine learning techniques with the company’s unique data assets to optimize all the business decisions we make.
+
+As a Machine Learning Engineer in Wholesale Payments, you will be engaged to design, implement and deploy high quality solutions for the complex business problems we face at JPMorgan. We need your help in productionizing image classification, natural language processing and other state of the art approaches to deliver commercially impactful solutions to the businesses we support. You will be called upon to draw from your software engineering experience to help us implement intelligent and practical algorithms. You will have a deep understanding of the design patterns, Python programming and cloud infrastructure and will be at the center of building and deploying mission-critical solutions.
+
+Job Responsibilities
+Learning about and understanding our supported businesses in order to drive practical and successful solutions
+Implementing AI/ML services and deploying them to the cloud
+Designing and implementing data pipelines to facilitate ML training
+Refactoring code and writing tests to maintain sufficient code quality metrics
+Applying ML techniques, such as data/text mining, document analysis, image/text classification, image processing and OCR
+Analyzing and evaluating the ongoing performance of developed models
+
+Required Qualifications, Capabilities, And Skills
+
+Bachelor’s Degree in Computer Science or related field
+2 years of hands-on experience with Python
+1 year of hands-on experience with AWS cloud infrastructure
+Strong object-oriented programming and interest in AI/ML
+"""
+
+**Report**:
+
+**Scoring**:  
+Before: 5/10  
+After: 9/10
+
+**Changes Made**:
+- Summary sounds a little vague, does not signal technical depth. Upgraded summary using targeted keywords.
+- Reiterated strongly ML training and inference models deployment in cloud using AWS cloud infrastructure.
+- Reinforced implementation of data pipelines and CI/CD.
+- Key areas to improve: Summary and experience sections underplay AI/ML relevance — no clear throughline of transition. Project descriptions lack consistent business impact or scale. Experience section still reads like a mechanical engineer’s resume, not an ML engineer’s. Needs stronger relevance alignment for software/ML hiring managers.
+- Improved projects and experience bullet points with metrics and results maintaining integrity and relevance to job desription.
+- Reframe the droplet detection pipeline as a CV/ML use case (highlight data collection, labeling, edge deployment). Suggestions: Lead with ML use cases.
+- For ZF/USA : Highlight where statistical or modeling skills were used like DOE, optimization etc.
+- Clarify business context: Who benefits from these tools?
+
+
+**Regenerated Resume**:
+```
+Summary
+Machine Learning Engineer with a decade-long engineering background, recently transitioned into AI/ML with hands-on experience in LLMs, model deployment, MLOps, and deep learning projects. Skilled in building and deploying ML solutions (BERT, GPT-2, RAG, Agentic AI) using Python, PyTorch, Hugging Face, FastAPI, and Docker. Passionate about applying AI to real-world problems in healthcare, finance, and automation.
+
+Skills
+Programming/ML: Python, SQL, PyTorch, TensorFlow, Hugging Face
+
+MLOps/Deployment: Experiment tracking, MLflow, Docker, Kubernetes, FastAPI
+
+GenAI Tools: LangChain, Agentic AI, RAG, Prompt Engineering
+
+Droplet Detection System – Embedded CV Application | Technologies: OpenCV, LiDAR + IR Sensors, TensorRT, Jetson Nano
+Designed and deployed a real-time embedded vision system for windshield droplet classification in autonomous vehicles.
+Achieved 95% classification accuracy and reduced latency by 40%, increasing sensor clarity in rain-prone conditions.
+Enabled over 10,000 autonomous vehicles to improve decision-making in poor weather, increasing ADAS reliability by 25%.
+Contributed to a 12% increase in customer satisfaction scores for vehicle models with enhanced droplet detection systems.
+
+Custom Decoder-Only LLM – Instruction Fine-Tuning | Technologies: Hugging Face Transformers, GPT-2, Custom BPE Tokenizer
+Built a decoder-only language model with grouped-query attention and a classification head.
+Fine-tuned a custom BPE tokenizer and GPT-2 model on 500K+ instruction-style prompts, improving generation coherence by 18%.
+Deployed in a developer-facing NLP toolkit used by over 1,000 ML engineers to experiment with fine-tuning techniques.
+Reduced inference errors in downstream classification tasks by 23%, improving prototype turnaround time.
+
+Patient Readmission Prediction – ML Pipeline Deployment
+Technologies: Random Forest, Deep Learning, FastAPI, MLflow, Ray Tune, AWS, CI/CD
+Developed and deployed predictive models on AWS to forecast diabetic patient readmissions.
+Achieved 0.70 recall, reducing false negatives by 19% and enabling early intervention for high-risk patients.
+Estimated to save hospitals up to $3.2M annually by reducing avoidable readmission penalties.
+Served over 80,000 patient records; integrated drift detection with Evidently AI to maintain 92% model accuracy over 6 months.
+
+AI Resume Coach – Intelligent Coaching Assistant | Technologies: GPT-4, LangChain, Streamlit, RAG, Prompt Engineering, AWS Sagemaker
+Built an AI-powered resume enhancement assistant delivering personalized feedback based on job descriptions.
+Boosted resume keyword alignment by 40% and increased interview callback rates by 27% among 500+ early users.
+Cut resume tailoring time from 2 hours to 10 minutes for job seekers using contextual prompt engineering.
+Helped job applicants in tech and data roles secure roles at top companies, including FAANG and Fortune 500s.
+
+Predictive Analytics for Project Funding | Technologies: BERT, PCA, Classical ML
+Built an NLP model to predict project funding success using imbalanced proposal data.
+Achieved F1 score of 0.82, automating 60% of proposal screening efforts for funding agencies.
+Enabled internal review teams to reduce manual evaluation time by 55%, improving funding cycle efficiency.
+Used by 3 nonprofit accelerators to prioritize projects with 15% higher likelihood of societal impact.
+Music Genre Classification – Multi-Class Acoustic Modeling
+Technologies: AcousticBrainz, Classical ML, Deep Learning
+
+Developed multi-class classifiers to differentiate closely related EDM genres.
+Achieved an F1 score of 0.80, outperforming baseline genre classifiers by 21%.
+Improved genre tagging accuracy for a music recommendation engine used by 50K+ users/month.
+Helped a streaming startup increase user engagement by 12% through better playlist targeting.
+
+Publication
+He, Z., Mongeau, L., Taduri, R., and Menicovich, D., "Feedforward Harmonic Suppression for
+Noise Control of Piezoelectrically Driven Synthetic Jet Actuators," SAE Int. J. Adv. & Curr.
+Prac. in Mobility 6(2):945-952, 2024, https://doi.org/10.4271/2023-01-1042.
+
+Professional Experience
+NVH Lead | Actasys Inc, Brooklyn, NY						      Oct 2021 - March 2024
+- Developed Matlab-based control algorithms integrating deep learning with novel feedforward active noise cancellation, reducing cabin noise by 6 dBA (>50% reduction in perceived loudness). 
+- Designed a low-cost laser vibrometer test bench (<$500) using Digital Signal Processing (Fast Fourier Transform) to analyze vibration data, optimizing piezoelectric actuator design by 30 dBA (>75% reduction)
+- Created a real-time droplet classification pipeline for windshield cleaning in autonomous vehicles. Achieved 95% detection accuracy with fused IR and LiDAR sensor data.
+
+Engineer III | ZF USA, Livonia, MI 								July 2015 - Oct 2021
+- Automated data analysis pipelines for acoustics and vibration datasets using Python and MATLAB.
+- Designed experiments and validated simulation models to optimize damping system behavior..
+- Applied DOE and statistical modeling to reduce part failure rates by 30%, saving $300K annually.
+
+Assistant Manager | NTPC Ltd., India 							July 2010 - July 2013
+- At India’s largest power utility, improved processes increasing annual revenue by $0.7 million.
+
+Education
+Interview Kickstart March 2024 - Present
+Machine Learning program covering mathematical foundations and practical applications in classical ML, deep learning, NLP, computer vision, LLMs/ Generative AI (fine-tuning, RLHF, RAG, Agentic systems).
+McGill University Jan 2023 - June 2023, Visiting Scholar, Montreal, QC, Canada
+Developed and tested 3D-printed acoustic enclosure prototypes with novel materials, and programmed code to collect data from various sensors for prototype evaluations.
+The Ohio State University Aug. 2013 - Aug. 2015, Master of Science, Columbus, OH USA
+Developed mathematical models to optimize vehicle exhaust system design. (Link)
+National Institute of Technology Karnataka Aug. 2006 - May 2010, Bachelor of Tech., Surathkal, India
+Designed and tested vertical axis wind turbines for power generation in areas with low wind speeds.
+
+Certifications
+Erdös Institute : Data Science Bootcamp, Deep Learning Bootcamp
+Microsoft Fabric : Data Analyst (DP600) Certified
+IBM Data Warehouse Engineer (Coursera)
+```
+
+**Cover Letter**:
+Dear Hiring Manager,
+
+I’m excited to apply for the Machine Learning Engineer role at JPMorgan’s Wholesale Payments team. With a Master’s in Engineering and hands-on experience deploying AI/ML solutions in production, I’m confident in my ability to contribute to your high-impact projects.
+
+I’ve built and deployed end-to-end ML systems across NLP, CV, and predictive analytics. Projects include a droplet detection system using OpenCV + Jetson Nano, an instruction-tuned GPT-2 LLM, and a patient readmission predictor deployed via FastAPI and AWS. I’ve also developed full CI/CD pipelines with MLflow, Ray Tune, and Evidently for model monitoring.
+
+My strengths lie in Python, cloud infrastructure (AWS), and clean, scalable code. I’m passionate about bridging state-of-the-art ML with real business value—precisely what JPMorgan’s AI/ML team aims to do.
+
+I’d love the opportunity to bring my technical depth and product mindset to JPMorgan. Thank you for your consideration.
+
+Sincerely,
+
+---
+
+Now, analyze the following:
+
+**Resume**:
+"""
+{resume_text}
+"""
+
+**Job Description**:
+"""
+{job_description}
+"""
+
+**Generate**:  
+1. A brief report of what changed  
+2. The **full regenerated resume**  
+3. A **tailored cover letter**  
+4. **Before and after alignment score**
