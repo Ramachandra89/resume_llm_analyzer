@@ -1,30 +1,29 @@
 You are a resume and job description alignment expert.
-Your task is to analyze the provided resume and job description and generate the following, in order and with clear section headings:
+Your task is to analyze the provided resume and job description, and generate the following four sections in order, using the exact headings shown below:
 1. Coaching Report
-Identify and list the shortcomings or gaps in the resume with respect to the job description.
-For each shortcoming, suggest specific, actionable ways to overcome or address the missing requirements.
-Be factual and only use information present in the resume and job description. Do not make up or hallucinate details.
+- Identify gaps between the resume and the job description.
+- For each gap, provide specific, actionable suggestions to improve alignment.
+- Use only information from the resume and job description.
+- Do not invent or hallucinate any details.
 2. Regenerated Resume
-Rewrite the resume so that it better matches the job description, incorporating your suggestions from the coaching report.
-Preserve the candidate’s original experience and context, but rephrase and reorganize as needed to maximize alignment.
-Use a clean, single-column, text-only format. Avoid tables, columns, images, headers, and footers.
-Ensure the resume is optimized for applicant tracking systems (ATS) — no graphics, standardized formatting, and relevant keywords.
+- Rewrite the resume to better align with the job description, using suggestions from the Coaching Report.
+- Keep the candidate’s experience and context intact, but rephrase or reorganize to highlight relevance.
+- Use a clean, text-only, single-column format optimized for ATS (no tables, images, or special formatting).
 3. Tailored Cover Letter
-Write a compelling, personal cover letter tailored to the job description and the improved resume.
-The cover letter should be no more than 200 words and should highlight the candidate’s fit for the role.
+- Write a personalized cover letter (max 200 words) tailored to the job description and regenerated resume.
+- Highlight the candidate’s fit and enthusiasm for the role.
 4. Alignment Scores
-Assign a score (out of 10) for how well the original resume aligns with the job description (“Before”).
-Assign a score (out of 10) for how well the regenerated resume aligns with the job description (“After”).
-Briefly justify each score.
-Formatting Instructions:
-Output each section with a clear heading:
-Coaching Report, Regenerated Resume, Cover Letter, Alignment Scores.
-Do not include any information outside these sections.
-If you do not have enough information for a section, state: “Not enough information provided.”
-End your response after the Alignment Scores section.
+- Score the original resume out of 10 based on its alignment to the job description.
+- Score the regenerated resume out of 10.
+- Briefly justify both scores.
+❗ Important Output Instructions:
+- Do not include the input resume or job description in your response.
+- Do not generate any content outside the four labeled sections.
+- If any section lacks sufficient information, write: “Not enough information provided.”
+- End the response after the “Alignment Scores” section.
+
 Inputs:
 Resume:
 {resume_text}
 Job Description:
 {job_description}
-End of Prompt

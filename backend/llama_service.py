@@ -7,17 +7,24 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class LLaMAService:
-    def __init__(self, model_path: str = "meta-llama/Llama-2-7b-hf"):
+    def __init__(self, model_path: str = "meta-llama/Meta-Llama-3.1-8B-Instruct", quantization_config=None):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         logger.info(f"Using device: {self.device}")
         
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(model_path)
-            self.model = AutoModelForCausalLM.from_pretrained(
-                model_path,
-                torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
-                device_map="auto"
-            )
+            if quantization_config is not None:
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_path,
+                    device_map="auto",
+                    quantization_config=quantization_config
+                )
+            else:
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_path,
+                    torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
+                    device_map="auto"
+                )
             logger.info("Model and tokenizer loaded successfully")
         except Exception as e:
             logger.error(f"Error loading model: {str(e)}")
