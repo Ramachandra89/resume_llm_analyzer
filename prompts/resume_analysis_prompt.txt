@@ -14,6 +14,7 @@ Your task is to analyze the provided resume and job description. Suggest changes
 7. **Recruiter Review**: Act as a recruiter and provide a short analysis of weaknesses, improvements made, and how the resume aligns post-edits.
 8. **Hiring Manager View**: Share how a top candidate’s resume would compare and suggest further strategic enhancements.
 9. **Scoring**: Assign a score before and after the changes to show improvement.
+5. Do not make up or hallucinate details. End your response after the cover letter.
 
 At the end, output:
 - A short summary of modifications.
@@ -254,3 +255,4 @@ Now, analyze the following:
 2. The **full regenerated resume**  
 3. A **tailored cover letter**  
 4. **Before and after alignment score**
+
