@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 
 import boto3
-import botocore.exceptions
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from huggingface_hub import login as hf_login

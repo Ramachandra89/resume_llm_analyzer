@@ -89,8 +89,6 @@ def fastapi_app():
 # ---------------------------------------------------------------------------
 @app.local_entrypoint()
 def test():
-    import urllib.request
-    import json
 
     # Just hit the health endpoint to confirm the app starts
     print("Deploy with:  modal deploy inference_check/modal_inference.py")
