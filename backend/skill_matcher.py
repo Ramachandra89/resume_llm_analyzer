@@ -1,6 +1,5 @@
 import logging
-from typing import Dict, List, Any
-from backend.local_model_service import LocalModelService
+from typing import Any, Dict, List
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +10,7 @@ class SkillMatcher:
     Generates probing questions to uncover hidden experience.
     """
 
-    def __init__(self, llm_service: LocalModelService):
+    def __init__(self, llm_service: Any):
         self.llm_service = llm_service
 
     def extract_skills(self, text: str, context: str = "resume") -> Dict[str, Any]:

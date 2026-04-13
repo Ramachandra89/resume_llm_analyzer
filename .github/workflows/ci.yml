@@ -52,15 +52,33 @@ jobs:
       # 6. Verify every Python file parses (catches syntax errors fast)
       - name: Syntax check all Python files
         run: |
-          find backend frontend deploy inference_check -name "*.py" \
-            -exec python -c "import ast, sys; ast.parse(open('{}').read()) or print('{}: OK')" \;
+          python - <<'EOF'
+          import ast, sys, pathlib
 
-      # 7. Smoke-import the modules that don't need a GPU
+          failed = []
+          dirs = ["backend", "frontend", "deploy", "inference_check"]
+          for d in dirs:
+              for path in pathlib.Path(d).rglob("*.py"):
+                  try:
+                      ast.parse(path.read_text())
+                      print(f"  OK  {path}")
+                  except SyntaxError as e:
+                      print(f"  FAIL {path}: {e}")
+                      failed.append(str(path))
+
+          if failed:
+              print(f"\n{len(failed)} file(s) have syntax errors:")
+              for f in failed:
+                  print(f"  {f}")
+              sys.exit(1)
+
+          print(f"\nAll files parsed successfully.")
+          EOF
+
+      # 7. Smoke-import the modules that don't need a GPU or torch
       - name: Import smoke test
-        env:
-          # Provide a fake endpoint name so SageMakerService doesn't initialize
-          SAGEMAKER_ENDPOINT_NAME: ""
         run: |
           python -c "from backend.resume_parser import extract_text_from_pdf; print('resume_parser OK')"
           python -c "from backend.job_scout import find_careers_url; print('job_scout OK')"
           python -c "from backend.sagemaker_service import SageMakerService; print('sagemaker_service OK')"
+          python -c "from backend.skill_matcher import SkillMatcher; print('skill_matcher OK')"
