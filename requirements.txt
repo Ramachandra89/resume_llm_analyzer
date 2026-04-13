@@ -1,5 +1,6 @@
 torch>=2.0.0
 transformers>=4.30.0
+huggingface-hub>=0.18.0
 fastapi>=0.100.0
 uvicorn>=0.22.0
 python-dotenv>=1.0.0
@@ -9,5 +10,15 @@ accelerate>=0.20.0
 bitsandbytes>=0.40.0
 sentencepiece>=0.1.99
 protobuf>=4.24.0
+boto3>=1.28.0
+sagemaker>=2.200.0
+requests>=2.31.0
+streamlit>=1.32.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# inference_check — Nebius AI (OpenAI-compatible) and Modal
+openai>=1.30.0
+modal>=0.62.0
 
 

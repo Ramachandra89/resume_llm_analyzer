@@ -5,7 +5,8 @@ def load_and_prepare_data():
     data = dataset['train']
 
     # Label encoding: "no fit"=0, others=1
-    encode_label = lambda label: 0 if label == "No Fit" else 1
+    def encode_label(label):
+        return 0 if label == "No Fit" else 1
 
     samples = []
     for item in data:
