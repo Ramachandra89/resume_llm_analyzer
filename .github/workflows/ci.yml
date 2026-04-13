@@ -1,0 +1,66 @@
+# CI — runs on every PR targeting main
+# Catches syntax errors, import issues, and code style problems
+# before any code reaches the main branch.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    name: Lint & Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python (same version as production)
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. Cache pip packages — speeds up repeat runs significantly
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 4. Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install ruff
+          # Install only the non-torch deps (torch is too large for CI)
+          pip install fastapi uvicorn pydantic streamlit \
+                      PyPDF2 requests boto3 python-dotenv \
+                      beautifulsoup4 lxml openai
+
+      # 5. Ruff — fast Python linter (replaces flake8 + isort)
+      - name: Lint with ruff
+        run: ruff check backend/ frontend/ deploy/ inference_check/
+
+      # 6. Verify every Python file parses (catches syntax errors fast)
+      - name: Syntax check all Python files
+        run: |
+          find backend frontend deploy inference_check -name "*.py" \
+            -exec python -c "import ast, sys; ast.parse(open('{}').read()) or print('{}: OK')" \;
+
+      # 7. Smoke-import the modules that don't need a GPU
+      - name: Import smoke test
+        env:
+          # Provide a fake endpoint name so SageMakerService doesn't initialize
+          SAGEMAKER_ENDPOINT_NAME: ""
+        run: |
+          python -c "from backend.resume_parser import extract_text_from_pdf; print('resume_parser OK')"
+          python -c "from backend.job_scout import find_careers_url; print('job_scout OK')"
+          python -c "from backend.sagemaker_service import SageMakerService; print('sagemaker_service OK')"
