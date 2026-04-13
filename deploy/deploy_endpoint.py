@@ -71,7 +71,7 @@ def deploy(instance_type: str, endpoint_name: str) -> str:
     )
 
     print(f"\nEndpoint '{endpoint_name}' is InService.")
-    print(f"\nAdd this to your .env file:\n")
+    print("\nAdd this to your .env file:\n")
     print(f"  SAGEMAKER_ENDPOINT_NAME={endpoint_name}")
     print(f"  AWS_REGION={region}")
 

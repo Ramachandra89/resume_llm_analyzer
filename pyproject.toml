@@ -57,3 +57,7 @@ packages = ["backend", "frontend", "inference_check"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+exclude = [
+    "backend/FT_llm/",       # experimental fine-tuning scripts, not production
+    "backend/test_*.py",     # ad-hoc test scripts
+]

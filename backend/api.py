@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from backend.skill_matcher import SkillMatcher
 import logging
 import os
 from dotenv import load_dotenv
@@ -32,7 +33,6 @@ else:
         raise
 
 # Initialize Skill Matcher
-from backend.skill_matcher import SkillMatcher
 try:
     skill_matcher = SkillMatcher(local_model_service)
 except Exception as e:
@@ -218,7 +218,7 @@ async def evaluate_experience(request: SkillEvaluationRequest):
     Returns newly identified skills and resume improvement suggestions.
     """
     try:
-        logger.info(f"Evaluating user experience responses...")
+        logger.info("Evaluating user experience responses...")
         
         evaluation = skill_matcher.evaluate_response_to_questions(
             request.user_responses,

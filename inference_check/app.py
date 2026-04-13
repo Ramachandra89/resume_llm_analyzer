@@ -21,8 +21,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # Load .env from the project root before anything reads env vars
 load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env"))
 
-from backend.resume_parser import extract_text_from_pdf
-from inference_check.nebius_service import NebiusService
+from backend.resume_parser import extract_text_from_pdf  # noqa: E402
+from inference_check.nebius_service import NebiusService  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Page config
@@ -44,7 +44,7 @@ with st.sidebar:
         help="All models run on Nebius AI (eu-north1)",
     )
     temperature = st.slider("Temperature", 0.0, 1.0, 0.6, 0.05)
-    st.caption(f"Provider: Nebius AI")
+    st.caption("Provider: Nebius AI")
 
 st.caption(f"Model: `{nebius_model}`")
 
