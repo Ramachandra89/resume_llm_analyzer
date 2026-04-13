@@ -1,7 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from backend.local_model_service import LocalModelService
-from backend.skill_matcher import SkillMatcher
 import logging
 import os
 from dotenv import load_dotenv
@@ -15,14 +13,26 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Resume Analysis API")
 
-# Initialize local model service
-try:
-    local_model_service = LocalModelService()
-except Exception as e:
-    logger.error(f"Failed to initialize local model service: {str(e)}")
-    raise
+# ── Model service: SageMaker if endpoint name is set, otherwise local ─────────
+if os.getenv("SAGEMAKER_ENDPOINT_NAME"):
+    from backend.sagemaker_service import SageMakerService
+    try:
+        local_model_service = SageMakerService()
+        logger.info("Using SageMaker endpoint: %s", os.getenv("SAGEMAKER_ENDPOINT_NAME"))
+    except Exception as e:
+        logger.error("Failed to initialize SageMakerService: %s", e)
+        raise
+else:
+    from backend.local_model_service import LocalModelService
+    try:
+        local_model_service = LocalModelService()
+        logger.info("Using local model service (no SAGEMAKER_ENDPOINT_NAME set)")
+    except Exception as e:
+        logger.error("Failed to initialize LocalModelService: %s", e)
+        raise
 
 # Initialize Skill Matcher
+from backend.skill_matcher import SkillMatcher
 try:
     skill_matcher = SkillMatcher(local_model_service)
 except Exception as e:
