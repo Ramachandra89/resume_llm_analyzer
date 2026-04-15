@@ -85,15 +85,12 @@ jobs:
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
+          IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
         run: |
           # Write the SSH key from the secret to a temp file
           echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/deploy_key.pem
           chmod 600 /tmp/deploy_key.pem
-
-          # Reconstruct IMAGE_URI locally — avoids cross-job output passing issues
-          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
 
           ssh -o StrictHostKeyChecking=no -i /tmp/deploy_key.pem ec2-user@$EC2_HOST << EOF
             # Authenticate Docker on EC2 to pull from ECR
