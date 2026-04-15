@@ -1,6 +1,5 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration, Trainer, TrainingArguments, DataCollatorForSeq2Seq
 from torch.utils.data import Dataset
-import torch
 from utils import load_and_prepare_data
 
 class ResumeFitDataset(Dataset):
