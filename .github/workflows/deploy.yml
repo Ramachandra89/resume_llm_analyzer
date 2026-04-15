@@ -84,21 +84,24 @@ jobs:
       - name: Pull and restart container on EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
-          IMAGE_URI: ${{ needs.build-and-push.outputs.image_uri }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           # Write the SSH key from the secret to a temp file
           echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/deploy_key.pem
           chmod 600 /tmp/deploy_key.pem
 
+          # Reconstruct IMAGE_URI locally — avoids cross-job output passing issues
+          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
+
           ssh -o StrictHostKeyChecking=no -i /tmp/deploy_key.pem ec2-user@$EC2_HOST << EOF
             # Authenticate Docker on EC2 to pull from ECR
-            aws ecr get-login-password --region $AWS_REGION \
-              | docker login --username AWS --password-stdin $ECR_REGISTRY
+            aws ecr get-login-password --region ${AWS_REGION} \
+              | docker login --username AWS --password-stdin ${ECR_REGISTRY}
 
             # Pull the new image
-            docker pull $IMAGE_URI
+            docker pull ${IMAGE_URI}
 
             # Stop and remove the old container (if running)
             docker stop resume-coach-api || true
@@ -110,7 +113,7 @@ jobs:
               --restart unless-stopped \
               -p 8000:8000 \
               --env-file /home/ec2-user/resume-coach/.env \
-              $IMAGE_URI
+              ${IMAGE_URI}
 
             # Quick health check
             sleep 5
