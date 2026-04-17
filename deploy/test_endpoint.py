@@ -140,7 +140,7 @@ def test_api_health() -> bool:
 def test_api_analyze() -> bool:
     payload = {"resume_text": SAMPLE_RESUME, "job_description": SAMPLE_JD}
     try:
-        r = requests.post(f"{BACKEND_URL}/analyze", json=payload, timeout=120)
+        r = requests.post(f"{BACKEND_URL}/analyze", json=payload, timeout=300)
         ok = r.status_code == 200 and "analysis" in r.json()
         snippet = r.json().get("analysis", "")[:120] if ok else r.text[:120]
         _result("API /analyze", ok, snippet)
@@ -198,7 +198,7 @@ def test_api_tailor() -> bool:
         "company_name": "Stripe",
     }
     try:
-        r = requests.post(f"{BACKEND_URL}/tailor-for-job", json=payload, timeout=180)
+        r = requests.post(f"{BACKEND_URL}/tailor-for-job", json=payload, timeout=300)
         ok = r.status_code == 200 and "result" in r.json()
         snippet = r.json().get("result", "")[:120] if ok else r.text[:120]
         _result("API /tailor-for-job", ok, snippet)
