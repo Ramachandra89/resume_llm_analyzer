@@ -9,11 +9,8 @@ import botocore.exceptions
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-# JumpStart endpoint name for the deployed Llama Guard 3 8B model.
-# NOTE: Llama Guard 3 8B is a safety classifier — it returns "safe" or
-# "unsafe\n[category]" rather than generative text.  Wire other generative
-# endpoints here for full resume-coaching capability.
-LLAMA_GUARD_ENDPOINT = "jumpstart-dft-llama-guard-3-8b-20260417-024127"
+# Active JumpStart endpoint — Llama 3.1 8B Instruct (generative text model).
+LLAMA_31_8B_ENDPOINT = "jumpstart-dft-llama-3-1-8b-instruct-20260417-030131"
 
 
 class SageMakerService:

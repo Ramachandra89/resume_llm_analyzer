@@ -30,7 +30,7 @@ load_dotenv()
 
 ENDPOINT_NAME = os.getenv(
     "SAGEMAKER_ENDPOINT_NAME",
-    "jumpstart-dft-llama-guard-3-8b-20260417-024127",
+    "jumpstart-dft-llama-3-1-8b-instruct-20260417-030131",
 )
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
 BACKEND_URL = os.getenv("BACKEND_API_URL", "http://localhost:8000")
