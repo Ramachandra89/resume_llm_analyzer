@@ -49,6 +49,7 @@ You can deploy using the SageMaker Console or via boto3. Here's a Python script 
 import boto3
 import json
 #s3://amazon-sagemaker-547741151022-us-east-1-ebc412e56193
+#
 sagemaker_client = boto3.client('sagemaker', region_name='us-east-1')
 
 # Deploy Meta-Llama-3.1-8B-Instruct model

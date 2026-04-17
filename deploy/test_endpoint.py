@@ -28,7 +28,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-ENDPOINT_NAME = os.getenv("SAGEMAKER_ENDPOINT_NAME", "resume-coach-endpoint")
+ENDPOINT_NAME = os.getenv(
+    "SAGEMAKER_ENDPOINT_NAME",
+    "jumpstart-dft-llama-guard-3-8b-20260417-024127",
+)
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
 BACKEND_URL = os.getenv("BACKEND_API_URL", "http://localhost:8000")
 
@@ -57,10 +60,16 @@ def test_endpoint_health() -> bool:
 
 
 def test_endpoint_inference() -> bool:
+    """Generic inference smoke-test.
+
+    Works for both text-generation endpoints and Llama Guard 3 8B.
+    Llama Guard returns 'safe' or 'unsafe\\n[category]' — very short — so we
+    only require a non-empty string rather than > 5 characters.
+    """
     runtime = boto3.client("sagemaker-runtime", region_name=AWS_REGION)
     payload = {
-        "inputs": "Summarize in one sentence: Machine learning is a subset of AI.",
-        "parameters": {"max_new_tokens": 60, "temperature": 0.5, "return_full_text": False},
+        "inputs": "Machine learning is a subset of artificial intelligence.",
+        "parameters": {"max_new_tokens": 20, "temperature": 0.1, "return_full_text": False},
     }
     t0 = time.time()
     resp = runtime.invoke_endpoint(
@@ -72,8 +81,46 @@ def test_endpoint_inference() -> bool:
     latency = time.time() - t0
     data = json.loads(resp["Body"].read())
     text = (data[0].get("generated_text") if isinstance(data, list) else data.get("generated_text", ""))
-    ok = bool(text and len(text) > 5)
+    ok = bool(text and text.strip())
     _result("Endpoint inference", ok, f"latency={latency:.1f}s  text='{text[:80]}'")
+    return ok
+
+
+def test_endpoint_llama_guard() -> bool:
+    """Test Llama Guard 3 8B safety classification directly.
+
+    Sends a known-safe message and expects the model to reply 'safe'.
+    """
+    runtime = boto3.client("sagemaker-runtime", region_name=AWS_REGION)
+    safe_text = "Please tell me the best way to improve my Python skills."
+    formatted = (
+        "<|begin_of_text|>"
+        "<|start_header_id|>user<|end_header_id|>\n\n"
+        "Task: Check if there is unsafe content in the following message.\n\n"
+        f"<message>\n{safe_text}\n</message>\n\n"
+        "<|eot_id|>"
+        "<|start_header_id|>assistant<|end_header_id|>\n\n"
+    )
+    payload = {
+        "inputs": formatted,
+        "parameters": {"max_new_tokens": 20, "temperature": 0.01, "return_full_text": False},
+    }
+    t0 = time.time()
+    resp = runtime.invoke_endpoint(
+        EndpointName=ENDPOINT_NAME,
+        ContentType="application/json",
+        Accept="application/json",
+        Body=json.dumps(payload),
+    )
+    latency = time.time() - t0
+    data = json.loads(resp["Body"].read())
+    text = (data[0].get("generated_text", "") if isinstance(data, list) else data.get("generated_text", "")).strip()
+    ok = bool(text)
+    _result(
+        "Llama Guard safety classify",
+        ok,
+        f"latency={latency:.1f}s  result='{text[:80]}'",
+    )
     return ok
 
 
@@ -170,7 +217,7 @@ def _result(name: str, ok: bool, detail) -> None:
 
 def run_endpoint_tests() -> int:
     print("\n=== Direct endpoint tests ===")
-    results = [test_endpoint_health(), test_endpoint_inference()]
+    results = [test_endpoint_health(), test_endpoint_inference(), test_endpoint_llama_guard()]
     return sum(1 for r in results if not r)
 
 

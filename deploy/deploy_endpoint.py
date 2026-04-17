@@ -19,8 +19,8 @@ import sagemaker
 from sagemaker.jumpstart.model import JumpStartModel
 
 # ── Config ────────────────────────────────────────────────────────────────────
-JUMPSTART_MODEL_ID = "meta-textgeneration-llama-3-1-8b-instruct"  # JumpStart ID
-JUMPSTART_MODEL_VERSION = "3.3.0"  # pin for stable results
+JUMPSTART_MODEL_ID = "meta-textgeneration-meta-llama-3-8b-instruct"  # JumpStart ID
+#JUMPSTART_MODEL_VERSION = "3.3.0"  # pin for stable results
 DEFAULT_ENDPOINT_NAME = "resume-coach-endpoint"
 # ml.g5.4xlarge  → 1×A10G, 24 GB VRAM, 16 vCPU — deployed instance, ~$2.03/hr
 # ml.g5.2xlarge  → 1×A10G, 24 GB VRAM,  8 vCPU — smaller option,   ~$1.52/hr
@@ -59,7 +59,6 @@ def deploy(instance_type: str, endpoint_name: str) -> str:
     # under SageMaker > JumpStart > Meta Llama 3.1 8B Instruct
     model = JumpStartModel(
         model_id=JUMPSTART_MODEL_ID,
-        model_version=JUMPSTART_MODEL_VERSION,
         role=role,
         sagemaker_session=session,
     )

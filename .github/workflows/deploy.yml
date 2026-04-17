@@ -87,6 +87,9 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
+          # Endpoint name is managed here so GitHub Secrets stay the single
+          # source of truth — no manual SSH required to rotate the endpoint.
+          SAGEMAKER_ENDPOINT_NAME: ${{ secrets.SAGEMAKER_ENDPOINT_NAME }}
         run: |
           # Write the SSH key from the secret to a temp file
           echo "${{ secrets.EC2_SSH_KEY }}" > /tmp/deploy_key.pem
@@ -103,6 +106,15 @@ jobs:
             # Stop and remove the old container (if running)
             docker stop resume-coach-api || true
             docker rm   resume-coach-api || true
+
+            # Overwrite the endpoint name in the .env file if the secret
+            # is provided, so the container picks up the new value on start.
+            if [ -n "${SAGEMAKER_ENDPOINT_NAME}" ]; then
+              ENV_FILE=/home/ec2-user/resume-coach/.env
+              sed -i '/^SAGEMAKER_ENDPOINT_NAME=/d' "\$ENV_FILE"
+              echo "SAGEMAKER_ENDPOINT_NAME=${SAGEMAKER_ENDPOINT_NAME}" >> "\$ENV_FILE"
+              echo "Updated SAGEMAKER_ENDPOINT_NAME to ${SAGEMAKER_ENDPOINT_NAME}"
+            fi
 
             # Start the new container
             docker run -d \
